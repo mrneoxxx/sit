@@ -79,7 +79,8 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: sit_production
-  username: sit
-  password: <%= ENV['SIT_DATABASE_PASSWORD'] %>
+#  <<: *default
+#  database: sit_production
+#  username: sit
+#  password: <%= ENV['SIT_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
