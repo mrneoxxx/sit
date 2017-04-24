@@ -1,4 +1,5 @@
 class Admin::StatusesController < ApplicationController
+  respond_to :html
   before_action :set_status, only: [:edit, :update, :destroy]
   before_action :set_data, only: [:new, :create, :edit, :update]
 
@@ -14,38 +15,24 @@ class Admin::StatusesController < ApplicationController
   end
 
   def create
-    @status = Status.new(status_params)
-
-    respond_to do |format|
-      if @status.save
-        format.html { redirect_to admin_statuses_path, notice: 'Status was successfully created.' }
-        format.json { render :show, status: :created, location: admin_statuses_path }
-      else
-        format.html { render :new }
-        format.json { render json: @status.errors, status: :unprocessable_entity }
-      end
-    end
+    @status = Status.create(status_params)
+    respond_with(@status, location: -> { admin_statuses_path })
   end
 
   def update
-    respond_to do |format|
-      if @status.update(status_params)
-        format.html { redirect_to admin_statuses_path, notice: 'Status was successfully updated.' }
-        format.json { render :show, status: :ok, location: admin_statuses_path }
-      else
-        format.html { render :edit }
-        format.json { render json: @status.errors, status: :unprocessable_entity }
-      end
-    end
+    @status.update(status_params)
+    respond_with(@status, location: -> { admin_statuses_path })
   end
 
-  # DELETE /admin/statuses/1
-  # DELETE /admin/statuses/1.json
   def destroy
     @status.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_statuses_url, notice: 'Status was successfully destroyed.' }
-      format.json { head :no_content }
+    respond_with(@status) do |format|
+      if @status.errors.empty?
+        flash[:notice] = 'Status was successfully removed.'
+      else
+        flash[:alert] = @status.errors.messages[:base].join
+      end
+      format.html { redirect_to admin_statuses_url }
     end
   end
 
