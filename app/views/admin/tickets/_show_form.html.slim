@@ -1,0 +1,16 @@
+= simple_form_for [:admin, @ticket], html: {class: 'form-horizontal form-label-left'} do |f|
+  = f.fields_for 'ticket_comments_attributes', @comment, index: nil, name: 'ticket_comments_attributes' do |comment_form|
+    .form-group
+      .col-md-9.col-sm-9.col-xs-12
+        = comment_form.input :body, label: 'Comment'
+    .form-group
+      .col-md-9.col-sm-9.col-xs-12
+        = f.association :status, collection: @statuses
+    .form-group
+      .col-md-9.col-sm-9.col-xs-12
+        = f.association :user, label: 'Assign'
+
+  .ln_solid
+  .form-group
+    .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+      = f.button :submit, class: 'btn btn-success'

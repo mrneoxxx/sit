@@ -1,0 +1,13 @@
+h1
+  ' Hi
+  = @ticket.customer
+p Your ticket #{@ticket.reference} has been updated
+p
+  ' Last comment:
+  = @ticket.ticket_comments.last_comment
+p
+  ' Status:
+  = @ticket.status_title
+p
+  ' Your link to view history:
+  = ticket_url(@ticket)

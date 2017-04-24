@@ -1,0 +1,7 @@
+h1
+  ' Hi
+  = @ticket.customer
+p Ticket #{@ticket.reference} was successfully created
+p
+  ' Your link to view history:
+  = ticket_url(@ticket)

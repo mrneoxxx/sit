@@ -1,0 +1,22 @@
+= simple_form_for admin_signed_in? ? [:admin, @ticket] : @ticket, html: { class: 'form-horizontal form-label-left'} do |f|
+
+  = f.error_notification
+
+  .form-group
+    .col-md-6.col-sm-6.col-xs-12
+      = f.input :customer, placeholder: 'user@domain.com'
+  .form-group
+    .col-md-6.col-sm-6.col-xs-12
+      = f.input :title
+  .form-group
+    .col-md-6.col-sm-6.col-xs-12
+      = f.association :department
+  = f.fields_for :ticket_comments do |comment_form|
+    .form-group
+      .col-md-9.col-sm-9.col-xs-12
+        = comment_form.input :body
+
+  .ln_solid
+  .form-group
+    .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+      = f.button :submit, class: 'btn btn-success'

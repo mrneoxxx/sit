@@ -1,0 +1,58 @@
+.page-title
+  .title_left
+    h3
+      | Tickets List
+  .title_right
+    = render 'filter_form'
+    .col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search
+      .input-group
+        = link_to 'Create New Ticket', new_admin_ticket_path, class: 'btn btn-primary'
+
+.clearfix
+
+.row
+  .col-md-12
+    .x_panel
+      .x_content
+        table.table.table-striped.projects
+          thead
+            tr
+              th style="width: 15%" Reference
+              th style="width: 35%" Title
+              th Department
+              th Status
+              th style="width: 5%" #Edit
+          tbody
+            - @tickets.each do |ticket|
+              tr
+                td
+                  = ticket.reference
+                  br
+                  small
+                    ' Created:
+                    = ticket.created_at.strftime('%m-%e-%y %H:%M')
+                td
+                  = ticket.title
+                  br
+                  small
+                    ' Customer:
+                    = ticket.customer
+                td
+                  = ticket.department_name
+                td
+                  button.btn.btn-success.btn-xs
+                    = ticket.status_title
+                  br
+                  small
+                    - if ticket.assigned?
+                      ' Assigned to:
+                      = ticket.user.name
+                    - else
+                      | Unassigned
+                td
+                  a.btn.btn-primary.btn-xs href="#{admin_ticket_path(ticket)}"
+                    i.fa.fa-folder View
+
+        = paginate @tickets
+
+

@@ -1,0 +1,77 @@
+.page-title
+  .title_left
+    h3
+      = @ticket.reference
+  - if admin_signed_in?
+    .title_right
+      .col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search
+        .input-group
+          = link_to 'To all list', admin_tickets_path, class: 'btn btn-primary'
+
+.clearfix
+
+.row
+  .col-md-12
+    .x_panel
+      .x_content
+        .col-md-9.col-sm-9.col-xs-12
+          div
+            .x_title
+              h2
+                = @ticket.title
+              .clearfix
+            ul.messages
+              - @ticket.ticket_comments.each do |comment|
+                - next if comment.new_record?
+                li
+                  .message_date
+                    h3.date.text-info
+                      = comment.created_at.day
+                    p.month
+                      = comment.created_at.strftime("%B")
+                  .message_wrapper
+                    h4.heading
+                      = comment.user_name ? comment.user_name : @ticket.customer
+                      | &nbsp&nbsp
+                      small
+                        = comment.created_at.strftime("%H:%M")
+                    blockquote.message
+                      = comment.body
+                    br
+                    - if comment.assignment
+                      p
+                        - if comment.assignment.user_name
+                          ' Assigned to:
+                          = comment.assignment.user_name
+                        - if @ticket.assigned?
+                          br
+                          - if comment.assignment.status_title
+                            ' Status changed to:
+                            = comment.assignment.status_title
+
+
+
+            = render 'show_form'
+
+        .col-md-3.col-sm-3.col-xs-12
+          section.panel
+            .x_title
+              h2 Details
+              .clearfix
+            .panel-body
+              .project_detail
+                p.title Customer
+                p
+                  = @ticket.customer
+                p.title Department
+                p
+                  = @ticket.department_name
+                p.title Status
+                p
+                  = @ticket.status_title
+                - if @ticket.assigned?
+                  p.title Assigned to
+                  p
+                    = @ticket.user.name
+
+

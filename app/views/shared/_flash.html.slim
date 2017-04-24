@@ -1,0 +1,16 @@
+- flash.each do |message_type, message|
+  - case message_type
+    - when 'notice'
+      - @alert_type = 'success'
+    - when 'alert'
+      - @alert_type ='danger'
+    - else
+      - @alert_type = message_type
+
+  .flash-message
+    div class="alert alert-dismissable alert-#{@alert_type} fade in" role="alert"
+      button.close type="button" data-dismiss="alert" aria-label="Close"
+        span aria-hidden="true" ×
+      p
+        = message
+

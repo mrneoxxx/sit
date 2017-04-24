@@ -1,0 +1,7 @@
+.col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search
+  = simple_form_for :q, url: admin_tickets_path, method: 'get', html: { class: 'input-group' } do |f|
+    = f.input :status_group, label: false, collection: StatusGroup.all, selected: params.dig(:q, :status_group),
+            include_blank: true
+    = f.input :query, label: false, input_html: { value: params.dig(:q, :query),
+            class: 'form-control', placeholder: 'Text search...'}
+    = f.button :submit, value: 'Filter'

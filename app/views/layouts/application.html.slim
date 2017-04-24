@@ -1,0 +1,19 @@
+doctype html
+html lang="en"
+  head
+    title
+      = t('site.title')
+    meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge"
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track':  'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body.nav-md
+    .container.body
+      .main_container
+        = render 'shared/menu'
+        = render 'shared/top_nav'
+        = render 'shared/content'
+        = render 'shared/footer'
